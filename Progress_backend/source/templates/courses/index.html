@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block head %}
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/noteworthy');
+    </style>
+    <script src="{% static 'js/mask/mask.js' %}"></script>
+    <script src="{% static 'js/mask/mask_list.js' %}"></script>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <link rel="stylesheet" href="{% static 'css/ckeditor5.css' %}" type="text/css">
+{% endblock %}
+{% block content %}
+    <div class="bloc_carousel">
+        <div class="bg-img1">
+            <div class="bg-img2">
+                <div class="container">
+                    <div class="main-text">
+                        {{page.text_primary|safe}}
+                    </div>
+                    <div class="sign_up_button">
+                        <button class="nav-item" id="sign_up_button" type="button">Записаться на курс</button>
+                    </div>
+                    <div id="carouselExampleCaptions" class="">
+                        <div class="carousel_view">
+                            <div class="owl-carousel owl-theme">
+                                {% for slide in page.main.all %}
+                                <div class="rounded-4 main-item" style="background-image: url({{slide.image.url}});">
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="who_are_we">
+            {{page.text_secondary|safe}}
+        </div>
+    </div>
+    <div class="about-us">
+        <div class="container">
+            <div class="row gy-4 justify-content-between">
+                {% for adv in page.adv.all %}
+                <div class="col-lg-4 col-sx-12 card_about_as_1">
+                    <div class="card rounded-4 h-100 card_about_as">
+                        <div class="card-body ck-content card-generate d-flex flex-column justify-content-between">
+                            {{adv.text|safe}}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                <div class="col-lg-4 col-sx-10">
+                    <div class="card rounded-4 h-100 card_sign_up">
+                        <div class="card-body">
+                            <h4>Бесплатный<br>урок!</h4>
+                            <p>Запишись на пробное<br>занятие прямо сейчас<br>и получи это</p>
+                            <img src="{% static 'images/8.png' %}" class="my-3 card-img-top card_sign_up_img" alt="...">
+                            <div class="sign_up_button">
+                                <button class="nav-item card_sign_up_button" id="sign_up_button" type="button">Записаться на курс
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="reviews">
+        <div class="bg-img">     
+        <h3>отзывы</h3>
+        <p class="p_rev">Узнайте, почему детям очень нравится заниматься у нас</p>
+        <div class="container comments">
+            <div id="carouselExample" class="carousel slide">
+                <div class="review_view">
+                    <div class="owl-carousel owl-theme">
+                    {% for comment in page.comments.all %}
+                        <div class="item">
+                           <div class="rounded-4 div_review d-flex flex-column">
+                                <div class="user row d-flex mt-5">
+                                    <div class="comment-image col-4" 
+                                            style=" background-image: url({{comment.image.url}});"></div>
+                                    <div class="comment-name col-6">
+                                        <h5 style="margin-top: 10%">{{comment.name}}</h5>
+                                    </div>
+                                </div>
+                                <div class="comment-text mt-5">
+                                    <p class="reviews_p">{{comment.review}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>   
+    </div>                    
+
+    <div class="partners">
+        <div class="container">
+            <h3>наши партнеры</h3>
+            <div>
+                <div id="carouselExampleIndicators" class="carousel slide">
+                    <div class="partners_view">
+                        <div class="owl-carousel owl-theme">
+                            {% for sponsor in page.sponsors.all %}
+                            <div class="rounded-4 partners-item">
+                                <div class="partners-image col-4" 
+                                    style=" background-image: url({{sponsor.image.url}});"></div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script src="{% static 'js/owl_carousel/owl.carousel.min.js' %}"></script>    
+<script>
+$(document).ready(function(){
+    $(".owl-carousel").owlCarousel();
+});
+$('.owl-carousel').owlCarousel({
+    center: true,
+    mouseDrag: false,
+    loop:true,
+    nav:true,
+    mergeFit: true,
+    responsive:{
+        0:{
+            items:1
+        },
+        778:{
+            items:1
+        },
+        1000:{
+            items:3
+        }
+    }
+})
+</script>
+{% endblock %}
